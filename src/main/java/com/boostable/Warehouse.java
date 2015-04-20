@@ -30,7 +30,12 @@ public class Warehouse {
            return  (new ErrorResponse("store id already exists")).toJson();
         }
         else{
-            Store store =  new Store(store_id, store_name);
+            Store store = null;
+            try {
+                store = new Store(store_id, store_name);
+            } catch (ErrorResponse errorResponse) {
+               return errorResponse.toJson();
+            }
             storeMap.put(store_id, store);
         }
 
@@ -80,7 +85,11 @@ public class Warehouse {
         if (storeMap.containsKey(store_id)) {
             Store store = storeMap.get(store_id);
 
-            return store.addProduct(new Product(product_id, product_name, description, price));
+            try {
+                return store.addProduct(new Product(product_id, product_name, description, price));
+            } catch (ErrorResponse errorResponse) {
+               return errorResponse.toJson();
+            }
         }
 
 

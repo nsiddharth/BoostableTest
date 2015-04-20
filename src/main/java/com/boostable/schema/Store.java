@@ -17,9 +17,13 @@ public class Store {
     private Map<Integer, Product> productMap;
 
 
-    public Store(int store_id, String store_name) {
+    public Store(int store_id, String store_name) throws ErrorResponse{
+
+       if(store_name==null || store_name.isEmpty())
+           throw (new ErrorResponse("null or empty value not permissible"));
 
         productMap = new HashMap<Integer, Product>();
+
         storeInformation =  new StoreInformation(store_id,store_name);
 
     }
@@ -33,10 +37,14 @@ public class Store {
     }
 
     public String getStore_name() {
+
         return storeInformation.getStore_name();
     }
 
-    public void setStore_name(String store_name) {
+    public void setStore_name(String store_name) throws ErrorResponse {
+        if(store_name==null || store_name.isEmpty())
+            throw (new ErrorResponse("null or empty value not permissible"));
+
         storeInformation.setStore_name(store_name);
     }
 
@@ -52,7 +60,10 @@ public class Store {
         return productList;
     }
 
-    public String addProduct(Product product){
+    public String addProduct(Product product) throws ErrorResponse {
+
+        if(product==null)
+                throw (new ErrorResponse("null value not permissible"));
 
         if(productMap.containsKey(product.getProduct_id()))
         {

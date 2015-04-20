@@ -7,6 +7,7 @@ public class WarehouseTest extends TestCase {
         private final String SUCCESS = "{\"message\":\"SUCCESS\"}";
         private final String ERROR = "{\"error\":\"store id already exists\"}";
     private final String NOT_FOUND_ERROR = "{\"error\":\"id not found\"}" ;
+    private final String NULL_ERROR = "{\"error\":\"null or empty value not permissible\"}";
 
     public void testAddStore() throws Exception {
         Warehouse warehouse =  new Warehouse();
@@ -18,7 +19,8 @@ public class WarehouseTest extends TestCase {
     public void testGetStore() throws Exception {
         Warehouse  warehouse =  new Warehouse();
         warehouse.addStore(35, "my_store");
-        assertEquals("{\"store_id\":35,\"store_name\":\"my_store\"}",warehouse.getStore(35));
+        assertEquals("{\"store_id\":35,\"store_name\":\"my_store\"}", warehouse.getStore(35));
+        assertEquals(NULL_ERROR,warehouse.addStore(40, null));
 
     }
 
